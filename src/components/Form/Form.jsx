@@ -1,25 +1,30 @@
-import React, { useState } from 'react';
+import { add } from "../../redux/contactsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { nanoid } from "nanoid";
 import { FormStyle } from './Form.styled';
 
-const Form = ({ onChange }) => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-
-  const handleChange = (event) => {
-    const { name, value } = event.currentTarget;
-    name === 'name' ? setName(value) : setNumber(value);
-  };
+export const Form = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onChange({ name, number });
-    formReset();
-  };
+    const name = event.target.name.value;
+    const number = event.target.number.value;
 
-  const formReset = () => {
-    setName('');
-    setNumber('');
-  };
+    if (contacts.some(
+        contact => 
+        contact.number === number || 
+        contact.name.toLowerCase() === name.toLowerCase())){
+          alert(`${name} or entered ${number} number is already in contacts.`);
+          return;
+        }
+
+    event.target.reset();
+    dispatch(add({id: nanoid(), name, number}))
+}; 
+
+const isFormValid = event => event.target.checkValidity();
 
   return (
     <FormStyle onSubmit={handleSubmit}>
@@ -30,9 +35,8 @@ const Form = ({ onChange }) => {
           type="text"
           name="name"
           required
-          value={name}
-          onChange={handleChange}
           pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          id='name'
         />
       </label>
       <label htmlFor="number">
@@ -42,20 +46,17 @@ const Form = ({ onChange }) => {
           type="tel"
           name="number"
           required
-          value={number}
-          onChange={handleChange}
           pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
+          id='number'
         />
       </label>
       <button
         className="btn btn-primary btn-block btn-large"
         type="submit"
-        disabled={name === '' && number === ''}
+        disabled={!isFormValid}
       >
         Add Contact
       </button>
     </FormStyle>
   );
 };
-
-export default Form;
