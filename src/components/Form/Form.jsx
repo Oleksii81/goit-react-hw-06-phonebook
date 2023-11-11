@@ -5,7 +5,7 @@ import { FormStyle } from './Form.styled';
 
 export const Form = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.contacts);
+  const contacts = useSelector(state => state.contacts);
   console.log(contacts);
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -6,7 +6,7 @@ import { NotificationFilter } from "components/NotificationFilter/NotificationFi
 
 export const Contacts = () => {
 
-    const contacts = useSelector(state => state.contacts.contacts);
+    const contacts = useSelector(state => state.contacts);
     const dispatch = useDispatch();
     const filter = useSelector(state => state.filter);
     console.log(contacts);
