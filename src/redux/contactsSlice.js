@@ -5,7 +5,7 @@ const initialState = {contacts: initialContacts, filter:''};
 
 const contactsSlice = createSlice({
     name: 'contacts',
-  initialState,
+    initialState,
       
   
   reducers: {
