@@ -1,5 +1,5 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import { filterReducer } from "./filterSlice";
+import { configureStore } from '@reduxjs/toolkit';
+//import { filterReducer } from "./filterSlice";
 import { contactsReducer } from './contactsSlice';
 import {
     persistReducer,
@@ -19,15 +19,15 @@ import {
     blacklist: ['filter'],
   };
   
-  const rootReducer = combineReducers({
-    contacts: contactsReducer,
-    filter: filterReducer,
-  });
+  //const rootReducer = combineReducers({
+   // contacts: contactsReducer,
+   // filter: filterReducer,
+ // });
   
-  const persistedRootReducer = persistReducer(persistConfig, rootReducer);
+  const persistedReducer = persistReducer(persistConfig, contactsReducer);
 
 export const store = configureStore({
-  reducer: persistedRootReducer,
+  reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {

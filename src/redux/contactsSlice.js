@@ -4,18 +4,22 @@ import { initialContacts } from '../initialContacts/initialContacts';
 const initialState = {contacts: initialContacts, filter:''};
 
 const contactsSlice = createSlice({
-  name: 'contacts',
+    name: 'contacts',
   initialState,
+      
   
   reducers: {
     add(state, action) {
-        state.contacts.unshift(action.payload);
+        state.contacts.contacts.unshift(action.payload);
     },
     remove(state, action) {
       state.contacts = state.contacts.filter(
         contact => contact.id !== action.payload
       );
     },
+    filterValue(state, action) {
+        state.filter = action.payload;
+      },
   },
 });
 
