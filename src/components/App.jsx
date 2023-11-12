@@ -17,9 +17,9 @@ export const App = () => {
         <Filter />
       </Containers>
       <Containers title={'Contacts'}>
-         <Notification message="There are no contacts in your list, sorry" />
+         <Notification />
         <Contacts />
-        <NotificationFilter notification="No contacts found that match the filter" />
+        <NotificationFilter />
       </Containers>
     </Section>
   );
